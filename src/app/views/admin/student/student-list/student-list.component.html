@@ -1,0 +1,108 @@
+<div
+  class="spinner-border text-primary"
+  style="width: 3rem; height: 3rem;"
+  role="status"
+  *ngIf="isLoading"
+>
+  <span class="sr-only">Loading...</span>
+</div>
+<div class="animated fadeIn" *ngIf="!isLoading">
+  <!--/.row-->
+  <div class="row">
+    <div class="col-lg-12">
+      <div class="card">
+        <div class="card-header">
+          <i class="fa fa-align-justify"></i> Combined All Table
+        </div>
+        <div>
+          <div
+            class="row align-items-center "
+            style="margin: 2%;margin-bottom: 0.5%"
+          >
+            <button
+              routerLink="create"
+              class="btn btn-square  btn-primary"
+              type="button"
+            >
+              Create Student
+            </button>
+            <button
+              routerLink="#"
+              class="btn btn-square  btn-success"
+              type="button"
+            >
+              Generate Pdf
+            </button>
+          </div>
+        </div>
+        <div class="card-body">
+          <table class="table table-bordered table-striped table-sm">
+            <thead>
+              <tr>
+                <th>#</th>
+
+                <th>Name</th>
+                <th>Country</th>
+                <th>Email</th>
+                <th>Status</th>
+                <th>Action</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let student of students; index as i">
+                <td>{{ i + 1 }}</td>
+                <td>{{ student.name }}</td>
+                <td>{{ student.country }}</td>
+                <td>{{ student.email }}</td>
+                <td>
+                  <span class="badge badge-success">Active</span>
+                </td>
+                <td>
+                  <div class="col-6 col-sm-4 col-md-2 col-xl mb-3 mb-xl-0">
+                    <button
+                      class="btn btn-square btn-sm btn-primary"
+                      type="button" [routerLink]="['edit',student.id]"
+                    >
+                      Edit
+                    </button>
+                    <button
+                      class="btn btn-square btn-sm btn-danger"
+                      type="button" (click)="onDelete(student.id)"
+                    >
+                      Delete
+                    </button>
+                  </div>
+                </td>
+              </tr>
+              <tr>
+                <td colspan="100%">
+                  <div
+                    class="alert alert-primary"
+                    role="alert"
+                    *ngIf="students.length == 0"
+                  >
+                    Not Found Data is still not found.
+                  </div>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+          <nav>
+            <ul class="pagination" style="float: right">
+              <li class="page-item"><a class="page-link" href="#">Prev</a></li>
+              <li class="page-item active">
+                <a class="page-link" href="#">1</a>
+              </li>
+              <li class="page-item"><a class="page-link" href="#">2</a></li>
+              <li class="page-item"><a class="page-link" href="#">3</a></li>
+              <li class="page-item"><a class="page-link" href="#">4</a></li>
+              <li class="page-item"><a class="page-link" href="#">Next</a></li>
+            </ul>
+          </nav>
+        </div>
+      </div>
+    </div>
+    <!--/.col-->
+  </div>
+  <!--/.row-->
+</div>

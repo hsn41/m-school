@@ -1,0 +1,149 @@
+<div>
+  <div class="animated fadeIn">
+    <div class="row">
+            <div class="col-lg-4">
+                    <div class="card">
+                      <div class="card-header">
+                        <i class="fa fa-align-justify"></i> Create User
+                      </div>
+                      <form class="form-horizontal"  (submit)="onAddUser(userForm)" #userForm="ngForm">
+            
+                      <div class="card-body">
+                          <div class="form-group row">
+                            <label class="col-md-3 col-form-label" for="email">Email</label>
+                            <div class="col-md-9">
+                              <input
+                                class="form-control"
+                                type="email"
+                                name="email"
+                                id="email"
+                                email
+                                placeholder="Enter Email.."
+                                autocomplete="email"
+                                [ngModel]="user?.email"
+                                #emailInput="ngModel"
+                                 required
+                              />
+                              <span class="danger" *ngIf="emailInput.invalid">Please enter email</span>
+                            </div>
+                          </div>
+                          <div class="form-group row">
+                            <label class="col-md-3 col-form-label">Password</label>
+                            <div class="col-md-9">
+                              <input
+                                class="form-control"
+                                type="password"
+                                name="password"
+                                id="password"
+                                placeholder="Enter Password.."
+                                autocomplete="current-password"
+                                [ngModel]="password"
+                                #passwordInput="ngModel"
+                                required
+                              />
+                              <span class="danger " *ngIf="passwordInput.invalid">Please enter password</span>
+                            </div>
+                          </div>
+                          <div class="form-group row">
+                            <label class="col-md-3 col-form-label" 
+                              >Role</label
+                            >
+                            <div class="col-md-9">
+                              <select class="form-control" id="role" name="role" [ngModel]="role" #roleInput="ngModel" required >
+                                <option value="0">Please select</option>
+                                <option value="1">Super Admininstrator</option>
+                                <option value="2">Admin</option>
+                                <option value="3">Staff</option>
+                              </select>
+                              <span class="danger" *ngIf="roleInput.invalid">Please Select User Role</span>
+                            </div>
+                          </div>
+                          <div class="form-group row">
+                            <label class="col-md-3 col-form-label">Status</label>
+                            <div class="col-md-9">
+                              <select class="form-control" id="status" name="status" [ngModel]="status" #statusInput="ngModel" required >
+                                <option value="0">Please select</option>
+                                <option value="1">Active</option>
+                                <option value="2">De-Active</option>
+                              </select>
+                              <span class="danger" *ngIf="statusInput.invalid">Please Select Status</span>
+                            </div>
+                          </div>
+                        
+                      </div>
+                      <div class="card-footer">
+                            <input class="btn btn-sm btn-primary" type="submit" value="Submit">
+                            <button class="btn btn-sm btn-danger" type="reset">
+                            <i class="fa fa-ban"></i> Reset</button>
+                        </div>
+                        </form>
+                    </div>
+                  </div>
+      <div class="col-lg-8">
+        <div class="card">
+          <div class="card-header">
+            <i class="fa fa-align-justify"></i> Users
+          </div>
+          <div class="card-body" *ngIf="users">
+            <table class="table table-responsive-sm" >
+              <thead>
+                <tr>
+                  <th>#</th>
+                  <th>Email</th>
+                  <th>Role</th>
+                  <th>Status</th>
+                  <th>Actions</th>
+
+                </tr>
+              </thead>
+              <tbody>
+                <tr *ngFor="let user of users;index as i">
+                    <td>{{i+1}}</td>
+
+                  <td>{{user.email}}</td>
+                  <td *ngIf="user.role=='1'">Super Admin</td>
+                  <td *ngIf="user.role=='2'">Admin</td>
+                  <td *ngIf="user.role=='3'">Staff</td>
+
+                  <td>
+                    <span class="badge badge-success" *ngIf="user.status=='1'">Active</span>
+                    <span class="badge badge-danger" *ngIf="user.status=='2'">Blocked</span>
+
+                  </td>
+                  <td>
+                      <div class="btn-group btn-group-sm" role="group" aria-label="Basic example">
+                          <button class="btn btn-secondary btn-primary" type="button" [routerLink]="['edit',user.id]">Edit</button>
+                          <button class="btn btn-secondary btn-danger " type="button" (click)=onDelete(user.id)>Delete</button>
+                    </div>
+                </td>
+                </tr>
+</tbody>
+            </table>
+            <ul class="pagination">
+              <li class="page-item">
+                <a class="page-link" href="#">Prev</a>
+              </li>
+              <li class="page-item active">
+                <a class="page-link" href="#">1</a>
+              </li>
+              <li class="page-item">
+                <a class="page-link" href="#">2</a>
+              </li>
+              <li class="page-item">
+                <a class="page-link" href="#">3</a>
+              </li>
+              <li class="page-item">
+                <a class="page-link" href="#">4</a>
+              </li>
+              <li class="page-item">
+                <a class="page-link" href="#">Next</a>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      
+    </div>
+  </div>
+</div>
