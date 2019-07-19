@@ -22,19 +22,14 @@ router.post("/api/students", checkAuth, (req, res, next) => {
   });
 });
 
-router.get(
-  "/api/students",
-  { withCredentials: true },
-  checkAuth,
-  (req, res, next) => {
-    Student.find().then(documents => {
-      res.status(200).json({
-        message: "Posts fetched successfully!",
-        students: documents
-      });
+router.get("/api/students", checkAuth, (req, res, next) => {
+  Student.find().then(documents => {
+    res.status(200).json({
+      message: "Posts fetched successfully!",
+      students: documents
     });
-  }
-);
+  });
+});
 router.get("/api/students/:studentId", checkAuth, (req, res, next) => {
   Student.findById(req.params.studentId).then(student => {
     if (student) {

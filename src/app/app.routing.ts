@@ -8,11 +8,12 @@ import { P404Component } from "./views/error/404.component";
 import { P500Component } from "./views/error/500.component";
 import { LoginComponent } from "./views/login/login.component";
 import { RegisterComponent } from "./views/register/register.component";
+import { AuthGuard } from "./views/login/auth-guard";
+
 import { StudentCreateComponent } from "./views/admin/student/student-create/student-create.component";
 import { FormsComponent } from "./views/base/forms.component";
 import { StudentListComponent } from "./views/admin/student/student-list/student-list.component";
 import { UsersComponent } from "./views/admin/users/users.component";
-import { AuthGuard } from "./views/login/auth-guard";
 
 export const routes: Routes = [
   // {
@@ -74,8 +75,16 @@ export const routes: Routes = [
             component: StudentListComponent,
             canActivate: [AuthGuard]
           },
-          { path: "create", component: StudentCreateComponent },
-          { path: "edit/:studentId", component: StudentCreateComponent }
+          {
+            path: "create",
+            component: StudentCreateComponent,
+            canActivate: [AuthGuard]
+          },
+          {
+            path: "edit/:studentId",
+            component: StudentCreateComponent,
+            canActivate: [AuthGuard]
+          }
         ]
       },
       {

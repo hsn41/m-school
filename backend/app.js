@@ -30,6 +30,7 @@ app.use((req, res, next) => {
   );
   next();
 });
+
 app.use(studentRoutes);
 app.use(userRoutes);
 module.exports = app;

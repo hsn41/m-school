@@ -1,7 +1,6 @@
 import { Component, OnInit, OnDestroy } from "@angular/core";
 import { NgForm } from "@angular/forms";
 import { UserService } from "../user.service";
-import swal from "sweetalert";
 import { User } from "./user.model";
 import { Subscription } from "rxjs";
 import { ActivatedRoute, ParamMap } from "@angular/router";
@@ -17,6 +16,7 @@ export class UsersComponent implements OnInit, OnDestroy {
   private mode = "create";
   private submitBtn = "Submit";
   private id: string;
+  private token: string;
   private user: User;
   constructor(public userService: UserService, public route: ActivatedRoute) {}
 
@@ -54,31 +54,14 @@ export class UsersComponent implements OnInit, OnDestroy {
       form.value.role,
       form.value.status
     );
-    swal("Great!", "Created successfully!", "success");
 
     form.resetForm();
   }
+  getToken() {
+    this.token = this.userService.getToken();
+  }
+    
   ngOnDestroy() {
     this.userSubscripton.unsubscribe();
-  }
-
-  onDelete(id: string) {
-    console.log(id);
-    swal({
-      title: "Are you sure?",
-      text: "Once deleted, you will not be able to recover this user!",
-      icon: "warning",
-      dangerMode: true,
-      buttons: ["Cancel", true]
-    }).then(willDelete => {
-      if (willDelete) {
-        this.userService.onDelete(id);
-        swal("Poof! User has been deleted!", {
-          icon: "success"
-        });
-      } else {
-        swal("Student Data is safe!");
-      }
-    });
   }
 }

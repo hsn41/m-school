@@ -1,16 +1,18 @@
-import { Component, OnInit } from '@angular/core';
-import { Router, NavigationEnd } from '@angular/router';
+import { Component, OnInit } from "@angular/core";
+import { Router, NavigationEnd } from "@angular/router";
+import { UserService } from "./views/admin/user.service";
 
 @Component({
   // tslint:disable-next-line
-  selector: 'body',
-  template: '<router-outlet></router-outlet>'
+  selector: "body",
+  template: "<router-outlet></router-outlet>"
 })
 export class AppComponent implements OnInit {
-  constructor(private router: Router) { }
+  constructor(private router: Router, private userSerice: UserService) {}
 
   ngOnInit() {
-    this.router.events.subscribe((evt) => {
+    this.userSerice.autoAuthUser();
+    this.router.events.subscribe(evt => {
       if (!(evt instanceof NavigationEnd)) {
         return;
       }

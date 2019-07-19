@@ -3,7 +3,6 @@ import { Student } from "../student.model";
 import { NgForm } from "@angular/forms";
 import { StudentService } from "../student.service";
 import { Router, ActivatedRoute, ParamMap } from "@angular/router";
-import swal from "sweetalert";
 
 @Component({
   selector: "app-student-create",

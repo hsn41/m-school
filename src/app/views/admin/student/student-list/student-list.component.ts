@@ -3,7 +3,6 @@ import { Subscription } from "rxjs";
 import { Student } from "../student.model";
 import { Router, ActivatedRoute } from "@angular/router";
 import { StudentService } from "../student.service";
-import swal from "sweetalert";
 
 @Component({
   selector: "app-post-list",
@@ -32,23 +31,5 @@ export class StudentListComponent implements OnInit, OnDestroy {
 
   ngOnDestroy() {
     this.studentsSub.unsubscribe();
-  }
-  onDelete(studentId: string) {
-    swal({
-      title: "Are you sure?",
-      text: "Once deleted, you will not be able to recover this student!",
-      icon: "warning",
-      dangerMode: true,
-      buttons: ["Cancel", true]
-    }).then(willDelete => {
-      if (willDelete) {
-        this.studentService.deleteStudent(studentId);
-        swal("Poof! Student has been deleted!", {
-          icon: "success"
-        });
-      } else {
-        swal("Student Data is safe!");
-      }
-    });
   }
 }

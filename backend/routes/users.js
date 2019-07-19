@@ -1,7 +1,7 @@
 const express = require("express");
 const User = require("../models/users");
-const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
+const bcrypt = require("bcrypt");
 const checkAuth = require("../middleware/check-auth");
 const router = express.Router();
 
@@ -60,7 +60,7 @@ router.delete("/api/users/:id", (req, res, next) => {
     });
 });
 
-router.post("/api/users/login", { withCredentials: true }, (req, res, next) => {
+router.post("/api/users/login", (req, res, next) => {
   let fetchedUser;
   User.findOne({ email: req.body.email })
     .then(user => {
@@ -82,18 +82,11 @@ router.post("/api/users/login", { withCredentials: true }, (req, res, next) => {
       }
       const token = jwt.sign(
         { email: fetchedUser.email, userId: fetchedUser._id },
-        "secret_this_should_be_longer",
+        "12345",
         { expiresIn: "1h" }
       );
-      console.log(
-        "backend" +
-          token +
-          ": EMail" +
-          fetchedUser.email +
-          " : ID :" +
-          fetchedUser._id
-      );
-      res.status(200).json({ token: token });
+
+      res.status(200).json({ token: token, expiresIn: 3600 });
     })
     .catch(error => {
       console.log(error);
